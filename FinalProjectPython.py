@@ -7,3 +7,5 @@ st.title("Final Project: Data Analysis and Visualization")
 st.header("Data")
 
 df_merged = pd.read_csv("MergedDutchLeagueData.csv")
+
+st.dataframe(df_merged.head())
