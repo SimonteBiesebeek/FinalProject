@@ -9,10 +9,6 @@ st.title("Final Project: Data Analysis and Visualization")
 st.header("Data")
 
 ROOT = Path(__file__).parent
-df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
-df_merged = pd.read_csv("MergedDutchLeagueData.csv")
-
-st.dataframe(df_merged.head())
 
 st.header("Project Introduction")
 
@@ -27,4 +23,3 @@ with col_data:
 with col_chart:
     st.subheader("Data Overview")
     st.markdown("Placeholder for chart")
-    
