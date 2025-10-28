@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from pathlib import Path
 
+st.set_page_config("Final Project", layout="wide")
 st.title("Final Project: Data Analysis and Visualization")
 
 ROOT = Path(__file__).parent
