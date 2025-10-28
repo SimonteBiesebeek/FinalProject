@@ -14,7 +14,7 @@ df_merged = pd.read_csv("MergedDutchLeagueData.csv")
 
 st.header("Project Introduction")
 
-st.header("Data Overview")
+
 
 col_data, _, col_chart = st.columns((0.8, 0.05, 1))
 
