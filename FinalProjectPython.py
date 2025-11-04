@@ -2,7 +2,12 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import pickle
+
 from pathlib import Path
+
+
+
 
 st.set_page_config("Final Project", layout="wide")
 st.title("Final Project: Data Analysis and Visualization")
@@ -25,4 +30,15 @@ with col_data:
 with col_chart:
     st.subheader("Data Overview")
     st.markdown("Placeholder for chart")
-    
+
+
+# Load the figures
+with open("win_fig.pkl", "rb") as f:
+    win_fig = pickle.load(f)
+
+with open("loss_fig.pkl", "rb") as f:
+    loss_fig = pickle.load(f)
+
+# Display in Streamlit
+st.plotly_chart(win_fig, use_container_width=True)
+st.plotly_chart(loss_fig, use_container_width=True)
