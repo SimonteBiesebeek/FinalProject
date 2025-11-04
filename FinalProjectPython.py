@@ -3,8 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import pickle
-import plotly.graph_objects as go
-
+import plotly as go
 from pathlib import Path
 
 
