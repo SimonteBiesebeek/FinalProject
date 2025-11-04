@@ -3,6 +3,5 @@ pandas
 numpy
 streamlit
 plotly
-pickle
 
 #force reinstall
