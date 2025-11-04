@@ -6,6 +6,8 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 
+import plotly
+st.write("Plotly version:", plotly.__version__)
 
 
 st.set_page_config("Final Project", layout="wide")
