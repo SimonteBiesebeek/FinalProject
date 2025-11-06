@@ -8,7 +8,6 @@ from pathlib import Path
 
 
 import plotly
-st.write("Plotly version:", plotly.__version__)
 
 
 st.set_page_config("Final Project", layout="wide")
@@ -18,7 +17,9 @@ ROOT = Path(__file__).parent
 df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
 df_merged = pd.read_csv("MergedDutchLeagueData.csv")
 
-
+ROOT = Path(__file__).parent
+df_premier_merged = pd.read_csv(ROOT / "MergedPremierLeagueData.csv")
+df_premier_merged = pd.read_csv("MergedPremierLeagueData.csv")
 st.header("Project Introduction")
 
 
@@ -43,3 +44,6 @@ with open("loss_fig.pkl", "rb") as f:
 # Display in Streamlit
 st.plotly_chart(win_fig, use_container_width=True)
 st.plotly_chart(loss_fig, use_container_width=True)
+
+st.plotly_chart(win_fig_prem, use_container_width=True)
+st.plotly_chart(loss_fig_prem, use_container_width=True)
