@@ -45,5 +45,11 @@ with open("loss_fig.pkl", "rb") as f:
 st.plotly_chart(win_fig, use_container_width=True)
 st.plotly_chart(loss_fig, use_container_width=True)
 
+with open("win_fig.prem", "rb") as f:
+    win_fig_prem = pickle.load(f)
+
+with open("loss_fig.prem", "rb") as f:
+    loss_fig_prem = pickle.load(f)
+
 st.plotly_chart(win_fig_prem, use_container_width=True)
 st.plotly_chart(loss_fig_prem, use_container_width=True)
