@@ -54,79 +54,8 @@ st.plotly_chart(loss_fig_prem, use_container_width=True)
 
 
 #graph shots/shots on target dominance
+with open("match_dominance_fig.pkl", "rb") as f:
+    fig = pickle.load(f)
 
-with open("dominance_data.pkl", "rb") as f:
-    data = pickle.load(f)
-
-seasonal_data = data["seasonal_data"]
-xx, yy, probs = data["xx"], data["yy"], data["probs"]
-
-heatmap = go.Contour(
-    x=xx[0],
-    y=yy[:,0],
-    z=probs,
-    colorscale="RdYlGn",
-    opacity=0.85,
-    showscale=True,
-    colorbar=dict(title="🏠 Home Win Probability", tickformat=".0%"),
-    contours=dict(showlines=False)
-)
-
-matches = go.Scatter(
-    x=seasonal_data['ShotDiff'],
-    y=seasonal_data['ShotOnTargetDiff'],
-    mode='markers',
-    marker=dict(
-        size=np.sqrt(seasonal_data['TotalShots']) * 2,
-        color=seasonal_data['HomeWin'],
-        colorscale="RdYlGn",
-        line=dict(width=1, color='white'),
-        opacity=0.8,
-        cmin=0, cmax=1,
-        showscale=False
-    ),
-)
-text = [
-    f"<b>{ht}</b> vs <b>{at}</b><br>Shots: {hs}-{as_}<br>On Target: {hst}-{ast}<br>Score: {fthg}-{ftag}<br>Result: {res}"
-    for ht, at, hs, as_, hst, ast, fthg, ftag, res in zip(
-        seasonal_data['HomeTeam'],
-        seasonal_data['AwayTeam'],
-        seasonal_data['HS'],
-        seasonal_data['AS'],
-        seasonal_data['HST'],
-        seasonal_data['AST'],
-        seasonal_data['FTHG'],
-        seasonal_data['FTAG'],
-        seasonal_data['FTR']
-    )
-]
-
-matches = go.Scatter(
-    x=seasonal_data['ShotDiff'],
-    y=seasonal_data['ShotOnTargetDiff'],
-    mode='markers',
-    marker=dict(
-        size=np.sqrt(seasonal_data['TotalShots']) * 2,
-        color=seasonal_data['HomeWin'],
-        colorscale="RdYlGn",
-        line=dict(width=1, color='white'),
-        opacity=0.8,
-        cmin=0, cmax=1,
-        showscale=False
-    ),
-    text=text,
-    hoverinfo='text'
-)
-
-layout = go.Layout(
-    title="⚽ Shot Dominance vs Home Win Probability",
-    xaxis=dict(title='Shot Difference (Home − Away)'),
-    yaxis=dict(title='Shots on Target Difference (Home − Away)'),
-    template='plotly_dark',
-    height=700,
-    hovermode='closest'
-)
-
-fig = go.Figure(data=[heatmap, matches], layout=layout)
-
+# Display in Streamlit
 st.plotly_chart(fig, use_container_width=True)
