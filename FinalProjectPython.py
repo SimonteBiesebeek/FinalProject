@@ -53,3 +53,45 @@ with open("loss_fig.prem", "rb") as f:
 
 st.plotly_chart(win_fig_prem, use_container_width=True)
 st.plotly_chart(loss_fig_prem, use_container_width=True)
+
+st.title("⚽ Football Dominance Surface (Precomputed)")
+
+# Load precomputed data
+with open("dominance_data.pkl", "rb") as f:
+    data = pickle.load(f)
+
+seasonal_data = data["seasonal_data"]
+xx = data["xx"]
+yy = data["yy"]
+probs = data["probs"]
+
+# Plotly 3D surface + matches
+surface = go.Surface(x=xx, y=yy, z=probs, colorscale='RdYlGn', opacity=0.85)
+bubbles = go.Scatter3d(
+    x=seasonal_data["ShotDiff"],
+    y=seasonal_data["ShotOnTargetDiff"],
+    z=seasonal_data["HomeWin"]+0.01,
+    mode='markers',
+    marker=dict(
+        size=(seasonal_data["TotalShots"])**0.5 * 1.5,
+        color=seasonal_data["HomeWin"],
+        colorscale="RdYlGn",
+        line=dict(width=1, color="white")
+    ),
+    text=[f"FTR: {r}" for r in seasonal_data["FTR"]],
+    hoverinfo="text"
+)
+
+fig = go.Figure(data=[surface, bubbles])
+fig.update_layout(
+    title="⚽ Precomputed 3D Football Dominance",
+    scene=dict(
+        xaxis_title="Shot Difference",
+        yaxis_title="Shots on Target Difference",
+        zaxis_title="Home-Win Probability",
+    ),
+    template="plotly_dark",
+    height=700
+)
+
+st.plotly_chart(fig, use_container_width=True)
