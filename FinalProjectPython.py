@@ -15,11 +15,9 @@ st.title("Final Project: Data Analysis and Visualization")
 
 ROOT = Path(__file__).parent
 df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
-df_merged = pd.read_csv("MergedDutchLeagueData.csv")
 
 ROOT = Path(__file__).parent
 df_premier_merged = pd.read_csv(ROOT / "MergedPremierLeagueData.csv")
-df_premier_merged = pd.read_csv("MergedPremierLeagueData.csv")
 st.header("Project Introduction")
 
 
@@ -54,8 +52,6 @@ with open("loss_fig.prem", "rb") as f:
 st.plotly_chart(win_fig_prem, use_container_width=True)
 st.plotly_chart(loss_fig_prem, use_container_width=True)
 
-with open("dominance_data.pkl", "rb") as f:
-    data = pickle.load(f)
 
 #graph shots/shots on target dominance
 
@@ -89,26 +85,36 @@ matches = go.Scatter(
         cmin=0, cmax=1,
         showscale=False
     ),
-    text=[
-        (
-            f"<b>{ht}</b> vs <b>{at}</b><br>"
-            f"Shots: {hs}-{as_}<br>"
-            f"On Target: {hst}-{ast}<br>"
-            f"Score: {fthg}-{ftag}<br>"
-            f"Result: {res}"
-        )
-        for ht, at, hs, as_, hst, ast, fthg, ftag, res in zip(
-            seasonal_data['HomeTeam'],
-            seasonal_data['AwayTeam'],
-            seasonal_data['HS'],
-            seasonal_data['AS'],
-            seasonal_data['HST'],
-            seasonal_data['AST'],
-            seasonal_data['FTHG'],
-            seasonal_data['FTAG'],
-            seasonal_data['FTR']
-        )
-    ],
+)
+text = [
+    f"<b>{ht}</b> vs <b>{at}</b><br>Shots: {hs}-{as_}<br>On Target: {hst}-{ast}<br>Score: {fthg}-{ftag}<br>Result: {res}"
+    for ht, at, hs, as_, hst, ast, fthg, ftag, res in zip(
+        seasonal_data['HomeTeam'],
+        seasonal_data['AwayTeam'],
+        seasonal_data['HS'],
+        seasonal_data['AS'],
+        seasonal_data['HST'],
+        seasonal_data['AST'],
+        seasonal_data['FTHG'],
+        seasonal_data['FTAG'],
+        seasonal_data['FTR']
+    )
+]
+
+matches = go.Scatter(
+    x=seasonal_data['ShotDiff'],
+    y=seasonal_data['ShotOnTargetDiff'],
+    mode='markers',
+    marker=dict(
+        size=np.sqrt(seasonal_data['TotalShots']) * 2,
+        color=seasonal_data['HomeWin'],
+        colorscale="RdYlGn",
+        line=dict(width=1, color='white'),
+        opacity=0.8,
+        cmin=0, cmax=1,
+        showscale=False
+    ),
+    text=text,
     hoverinfo='text'
 )
 
