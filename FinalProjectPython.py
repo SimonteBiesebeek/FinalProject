@@ -57,6 +57,12 @@ st.plotly_chart(loss_fig_prem, use_container_width=True)
 with open("dominance_data.pkl", "rb") as f:
     data = pickle.load(f)
 
+#graph shots/shots on target dominance
+
+st.set_page_config(page_title="Football Dominance Map", layout="wide")
+st.title("⚽ Football Dominance Map (2D)")
+st.write("Visualizing how shooting dominance affects the chance of a home win.")
+
 seasonal_data = data["seasonal_data"]
 xx, yy, probs = data["xx"], data["yy"], data["probs"]
 
@@ -116,4 +122,4 @@ fig.update_layout(
     height=700,
 )
 
-fig.show()
+st.plotly_chart(fig, use_container_width=True)
