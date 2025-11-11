@@ -54,44 +54,66 @@ with open("loss_fig.prem", "rb") as f:
 st.plotly_chart(win_fig_prem, use_container_width=True)
 st.plotly_chart(loss_fig_prem, use_container_width=True)
 
-st.title("⚽ Football Dominance Surface (Precomputed)")
-
-# Load precomputed data
 with open("dominance_data.pkl", "rb") as f:
     data = pickle.load(f)
 
 seasonal_data = data["seasonal_data"]
-xx = data["xx"]
-yy = data["yy"]
-probs = data["probs"]
+xx, yy, probs = data["xx"], data["yy"], data["probs"]
 
-# Plotly 3D surface + matches
-surface = go.Surface(x=xx, y=yy, z=probs, colorscale='RdYlGn', opacity=0.85)
-bubbles = go.Scatter3d(
+# --- Build the 2D plot ---
+heatmap = go.Contour(
+    x=xx[0],
+    y=yy[:, 0],
+    z=probs,
+    colorscale='RdYlGn',
+    opacity=0.85,
+    contours=dict(showlabels=True),
+    colorbar=dict(title="Home-Win<br>Probability"),
+)
+
+points = go.Scatter(
     x=seasonal_data["ShotDiff"],
     y=seasonal_data["ShotOnTargetDiff"],
-    z=seasonal_data["HomeWin"]+0.01,
-    mode='markers',
+    mode="markers",
     marker=dict(
-        size=(seasonal_data["TotalShots"])**0.5 * 1.5,
+        size=(seasonal_data["TotalShots"])**0.4 * 4,
         color=seasonal_data["HomeWin"],
         colorscale="RdYlGn",
-        line=dict(width=1, color="white")
+        line=dict(width=1, color="white"),
+        opacity=0.8,
+        cmin=0, cmax=1
     ),
-    text=[f"FTR: {r}" for r in seasonal_data["FTR"]],
+    text=[
+        f"<b>{r}</b> — Shots Δ: {sd}, On Target Δ: {sotd}"
+        for r, sd, sotd in zip(
+            seasonal_data["FTR"],
+            seasonal_data["ShotDiff"],
+            seasonal_data["ShotOnTargetDiff"]
+        )
+    ],
     hoverinfo="text"
 )
 
-fig = go.Figure(data=[surface, bubbles])
+fig = go.Figure(data=[heatmap, points])
+
 fig.update_layout(
-    title="⚽ Precomputed 3D Football Dominance",
-    scene=dict(
-        xaxis_title="Shot Difference",
-        yaxis_title="Shots on Target Difference",
-        zaxis_title="Home-Win Probability",
+    title="⚽  Football Dominance Map<br><sup>Shot & Shots-on-Target Difference vs Home-Win Probability</sup>",
+    xaxis=dict(
+        title="Shot Difference (Home − Away)",
+        showgrid=True,
+        zeroline=True,
+        zerolinecolor="white",
     ),
+    yaxis=dict(
+        title="Shots-on-Target Difference (Home − Away)",
+        showgrid=True,
+        zeroline=True,
+        zerolinecolor="white",
+    ),
+    plot_bgcolor="#175e33",   # football-pitch green
+    paper_bgcolor="#154f2d",
     template="plotly_dark",
-    height=700
+    height=700,
 )
 
-st.plotly_chart(fig, use_container_width=True)
+fig.show()
