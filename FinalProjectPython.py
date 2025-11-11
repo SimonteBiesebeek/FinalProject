@@ -61,7 +61,7 @@ with open("match_dominance_fig.pkl", "rb") as f:
 st.plotly_chart(fig, use_container_width=True)
 
 #premier league version
-with open("match_dominance_fig.pkl", "rb") as f:
+with open("match_dominance_fig_prem.pkl", "rb") as f:
     fig_prem_shots = pickle.load(f)
 
 # Display in Streamlit
