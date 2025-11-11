@@ -59,67 +59,96 @@ with open("dominance_data.pkl", "rb") as f:
 
 #graph shots/shots on target dominance
 
-st.set_page_config(page_title="Football Dominance Map", layout="wide")
-st.title("⚽ Football Dominance Map (2D)")
-st.write("Visualizing how shooting dominance affects the chance of a home win.")
+import streamlit as st
+import pickle
+import plotly.graph_objs as go
+
+st.set_page_config(page_title="Dutch Windmill Map", layout="wide")
+st.title("🌷⚽ Dutch League Windmill Map")
+
+# Load precomputed data
+with open("dominance_data.pkl", "rb") as f:
+    data = pickle.load(f)
 
 seasonal_data = data["seasonal_data"]
 xx, yy, probs = data["xx"], data["yy"], data["probs"]
 
-# --- Build the 2D plot ---
-heatmap = go.Contour(
+# --- Heatmap for probability surface ---
+contour = go.Contour(
     x=xx[0],
-    y=yy[:, 0],
+    y=yy[:,0],
     z=probs,
-    colorscale='RdYlGn',
+    colorscale="RdYlGn",
     opacity=0.85,
-    contours=dict(showlabels=True),
-    colorbar=dict(title="Home-Win<br>Probability"),
+    showscale=True,
+    colorbar=dict(title="🏠 Home Win Probability", tickformat=".0%"),
+    contours=dict(showlines=False)
 )
 
-points = go.Scatter(
-    x=seasonal_data["ShotDiff"],
-    y=seasonal_data["ShotOnTargetDiff"],
-    mode="markers",
+# --- Tulip markers (matches) with full-time score ---
+bubbles = go.Scatter(
+    x=seasonal_data['ShotDiff'],
+    y=seasonal_data['ShotOnTargetDiff'],
+    mode='markers',
     marker=dict(
-        size=(seasonal_data["TotalShots"])**0.4 * 4,
-        color=seasonal_data["HomeWin"],
-        colorscale="RdYlGn",
-        line=dict(width=1, color="white"),
-        opacity=0.8,
-        cmin=0, cmax=1
+        size=np.sqrt(seasonal_data['TotalShots']) * 2,
+        color=seasonal_data['HomeWin'],
+        colorscale='RdYlGn',
+        symbol='diamond-tall',
+        line=dict(width=1, color='white'),
+        opacity=0.9,
+        cmin=0, cmax=1,
+        showscale=False
     ),
     text=[
-        f"<b>{r}</b> — Shots Δ: {sd}, On Target Δ: {sotd}"
-        for r, sd, sotd in zip(
-            seasonal_data["FTR"],
-            seasonal_data["ShotDiff"],
-            seasonal_data["ShotOnTargetDiff"]
+        (
+            f"<b>{ht}</b> vs <b>{at}</b><br>"
+            f"Shots: {hs}-{as_}<br>"
+            f"On Target: {hst}-{ast}<br>"
+            f"Score: {fthg}-{ftag}<br>"
+            f"Result: {res}"
+        )
+        for ht, at, hs, as_, hst, ast, fthg, ftag, res in zip(
+            seasonal_data['HomeTeam'],
+            seasonal_data['AwayTeam'],
+            seasonal_data['HS'],
+            seasonal_data['AS'],
+            seasonal_data['HST'],
+            seasonal_data['AST'],
+            seasonal_data['FTHG'],
+            seasonal_data['FTAG'],
+            seasonal_data['FTR']
         )
     ],
-    hoverinfo="text"
+    hoverinfo='text'
 )
 
-fig = go.Figure(data=[heatmap, points])
-
-fig.update_layout(
-    title="⚽  Football Dominance Map<br><sup>Shot & Shots-on-Target Difference vs Home-Win Probability</sup>",
-    xaxis=dict(
-        title="Shot Difference (Home − Away)",
-        showgrid=True,
-        zeroline=True,
-        zerolinecolor="white",
-    ),
-    yaxis=dict(
-        title="Shots-on-Target Difference (Home − Away)",
-        showgrid=True,
-        zeroline=True,
-        zerolinecolor="white",
-    ),
-    plot_bgcolor="#175e33",   # football-pitch green
-    paper_bgcolor="#154f2d",
-    template="plotly_dark",
-    height=700,
+# --- Decision boundary ---
+boundary = go.Contour(
+    x=xx[0],
+    y=yy[:,0],
+    z=probs,
+    contours=dict(start=0.5, end=0.5, size=0.01, coloring='lines'),
+    showscale=False,
+    line=dict(color='white', width=3, dash='dot'),
+    hoverinfo='skip'
 )
+
+# --- Layout (windmill / tulip theme) ---
+layout = go.Layout(
+    title=dict(
+        text="🌷⚽ Dutch League Windmill Map<br>Shot Dominance & Home-Win Probability",
+        x=0.5, xanchor='center'
+    ),
+    xaxis=dict(title='Shot Difference (Home − Away)', zeroline=True, zerolinecolor='white'),
+    yaxis=dict(title='Shots on Target Difference (Home − Away)', zeroline=True, zerolinecolor='white'),
+    paper_bgcolor='#2b7a3d',
+    plot_bgcolor='#3c9a52',
+    hovermode='closest',
+    template='plotly_dark',
+    height=750
+)
+
+fig = go.Figure(data=[contour, boundary, bubbles], layout=layout)
 
 st.plotly_chart(fig, use_container_width=True)
