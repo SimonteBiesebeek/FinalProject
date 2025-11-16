@@ -57,14 +57,12 @@ st.plotly_chart(loss_fig_prem, use_container_width=True)
 with open("match_dominance_fig.pkl", "rb") as f:
     fig = pickle.load(f)
 
-# Display in Streamlit
 st.plotly_chart(fig, use_container_width=True)
 
 #premier league version
 with open("match_dominance_fig_prem.pkl", "rb") as f:
     fig_prem_shots = pickle.load(f)
 
-# Display in Streamlit
 st.plotly_chart(fig_prem_shots, use_container_width=True)
 
 #corners Eredivisie
@@ -72,3 +70,9 @@ with open("corner_heatmap_fig.pkl", "rb") as f:
     fig_cornersDutch = pickle.load(f)
 
 st.plotly_chart(fig_cornersDutch, use_container_width=True)
+
+#corners Premier League
+with open("corner_heatmapPremier_fig.pkl", "rb") as f:
+    fig_cornersPremier = pickle.load(f)
+
+st.plotly_chart(fig_cornersPremier, use_container_width=True)
