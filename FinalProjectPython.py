@@ -68,7 +68,7 @@ with open("match_dominance_fig_prem.pkl", "rb") as f:
 st.plotly_chart(fig_prem_shots, use_container_width=True)
 
 #corners Eredivisie
-with open("corner_heatmap_fig.pkl", "wb") as f:
+with open("corner_heatmap_fig.pkl", "rb") as f:
     fig_cornersDutch = pickle.load(f)
 
-    st.plotly_chart(fig_cornersDutch, use_container_width=True)
+st.plotly_chart(fig_cornersDutch, use_container_width=True)
