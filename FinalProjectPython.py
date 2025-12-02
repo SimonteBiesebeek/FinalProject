@@ -78,7 +78,7 @@ with open("corner_heatmapPremier_fig.pkl", "rb") as f:
 st.plotly_chart(fig_cornersPremier, use_container_width=True)
 
 st.subheader("Bookmaker Probabilities Visualization")
-with open("Book_probabilities.pkl", "rb") as f:
-    bookprobabilities = pickle.load(f)
+with open("model_vs_bookmaker_plot.pkl", "rb") as f:
+    fig_betting = pickle.load(f)
 
-st.plotly_chart(bookprobabilities, use_container_width=True)
+st.plotly_chart(fig_betting, use_container_width=True)
