@@ -1,8 +1,8 @@
 # Estimating a Model that Beats the Sports Betting Market 
 # Final Project Data Analysis with Python \ University of Zürich
 
-## Link to Streamlit
-[Streamlit](https://finalprojectsimondawp.streamlit.app/)
+## Link to [Streamlit](https://finalprojectsimondawp.streamlit.app/)
+
 ## Project Motivation
 In a period where the stock market seems increasingly uncertain and also highly efficient, since information is immediately absorbed, it leaves little room for exploitable inefficiencies. Therefore, I am interested in exploring markets where pricing might be less perfect, and as I am highly interested in sports, I wanted to see whether it would be possible to develop a model that structurally beats the bookmakers, due to public biases, emotional sentiment, or slower information adjustment. Although many people argue that the bookmakers have implemented all available data, to make sure that there are no arbitrage opportunities, I believe that bookmakers adjust their odds based on what bets people place, and as gamblers often tend to make reckless bets, fully grounded on either current feelings or emotional sentiment, I am convinced that the bookmakers do not perfectly price the odds, such that there should be a way to develop a model that beats this market. This project aims to investigate whether a data-driven and statistically grounded model applied to data from both the Dutch and the English football league can identify these inefficiencies and make structural money out of the betting market, contrary to the common view that gamblers always lose, and bookmakers always win. Furthermore, my second hypothesis is that the betting market on the premier league is more competitive, with more companies overcutting each others' odds, due to the insane popularity of the league all over the world. Therefore, I asssume that, in general, it should be more profitable to bet on premier league matches than on Eredivisie matches from the Netherlands. 
 ## Project Description
