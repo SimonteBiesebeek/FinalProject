@@ -86,3 +86,5 @@ st.plotly_chart(fig_betting, use_container_width=True)
 st.write("Premier League Model")
 with open("model_vs_bookmaker_premier_plot.pkl", "rb") as f:
     fig_premier_betting = pickle.load(f)
+
+st.plotly_chart(fig_premier_betting, use_container_width=True)  
