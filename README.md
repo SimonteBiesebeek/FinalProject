@@ -13,14 +13,12 @@ In a period where the stock market seems increasingly uncertain and also highly 
 ### Data Overview
 Data imported from football-data.co.uk
 Links to datasets:
-```md
 [DutchLeague](https://www.football-data.co.uk/netherlandsm.php)
 [EnglishLeague](https://www.football-data.co.uk/englandm.php)
 - Data from season 2020/2021 until 2024/2025, 5 seasons in total
 - 1530 games for dutch league, 1900 games for premier league
 ### Main Variables
 Link to list of all variables:
-```md
 [VariableList](https://www.football-data.co.uk/notes.txt)
 Most important variables for model: FTR (Full Time Result), HomeTeam, Awayteam, 1XB odds and bet365 odds for comparison with bookmakers
 ### Key Technical Steps
