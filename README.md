@@ -18,14 +18,14 @@ In a period where the stock market seems increasingly uncertain and also highly 
 - Is there any relationship between the amount of corners per team and the probability of each team?
     - Interesting to see that corners is almost no predictor at all, coefficient only 0.07 for Dutch League 
     - Away teams tend to win more often when having a significant corner deficit, while for the home team this does not hold
-- To what extent does my model outperform the betting market?
+- To what extent does my model outperform the betting market?t
     - Straightforward model, where I assume that the strength of each team depends for 50% on the current season's form, and the other 50% on the 5-year average
     - For Dutch league, ROI = 2.21% for 1xBet, and 1.61% for Bet 365. 
     - For English League, ROI = 11.11% for 1xBet and 6.06% for Bet365
 - Which league is more profitable to bet on?
     - Based on my model, Premier League is much more profitable for betting
     - In both cases, 1xBet significantly outperforms Bet365
-    - Although betting is characterized by a high standard deviation, applying the law of large numbers, since you have 390 games per season, should make it quite stable to bet. 
+    - Although betting is characterized by a high standard deviation, applying the law of large numbers, since you have 380 games per season, should make it quite stable to bet. 
 ### Data Overview
 Data imported from football-data.co.uk
 Links to datasets:
@@ -39,4 +39,20 @@ Link to list of all variables:
 [VariableList](https://www.football-data.co.uk/notes.txt)
 
 Most important variables for model: FTR (Full Time Result), HomeTeam, Awayteam, 1XB odds and bet365 odds for comparison with bookmakers
-### Key Technical Steps
+## Key Technical Steps
+
+### Data Cleaning
+- For the Premier League dataset, I had to convert the date and time variable to the same format as for the dutch league version, to be able to sort the values and compare the datasets
+- Furthermore, I had to generate a new variable called "winner" by combining the hometeam/awayteam variables with the value in the full-time result column (FTR)
+- For the first visualization about half-time and full-time results, I generated a new, binary variable called "HT_leader", equalling 1 for the home team if the home team goals at half time (HTHG) is larger than the away team goals (HTAG)
+- I created some difference variables, for example shot difference, where I subtract the away team shots (AS) from the home team shots (HS)
+
+### Data Analysis
+- I regressed my independent variables on my dependent variable 'HomeWin'
+- for my final model, I sorted games based on seaons, rather than on years, by defining a season as starting from July onwards, so if the month variable is larger or equal to 7. 
+- I then computed average points per season, to demonstrate each team's seasonal performances, such that I could incorporate this in my model, where I assigned the probability of winning of being dependent equally on long-term performances and seasonal performances (both 50% weight)
+- I generated variables for bookmaker probabilities, simply by dividing 1 with the bookmaker odds, since odds and probabilities are inversely related in a perfect market. 
+- In the model, I implemented that I always and only bet when the model predicts higher probabilities than the bookmakers, and I found that this would have been a profitable strategy for the last 5 seasons.
+### Data Visualization
+- I used plotly to make the graphs, since it allows for interactive visualizations
+- I used pickle to do the complicated code only in Jupyter notebook, such that I could keep my python file structured and easily to interpret for my streamlit
