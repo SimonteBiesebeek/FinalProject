@@ -11,7 +11,7 @@ import plotly
 
 
 st.set_page_config("Final Project", layout="wide")
-st.title("Final Project: Data Analysis and Visualization")
+st.title("Final Project: Data Analysis with Python")
 
 ROOT = Path(__file__).parent
 df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
@@ -27,6 +27,7 @@ col_data, _, col_chart = st.columns((0.8, 0.05, 1))
 with col_data:
     st.subheader("Raw Data")
     st.dataframe(df_merged)
+    st.dataframe(df_premier_merged)
 
 with col_chart:
     st.subheader("Data Overview")
