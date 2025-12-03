@@ -85,9 +85,9 @@ with open("match_dominance_fig_prem.pkl", "rb") as f:
 st.plotly_chart(fig_prem_shots, use_container_width=True)
 st.subheader("Key Insights from Shots Analysis")
 keywords = [
-    "As expected, positive relationship between both shots and shots on target on win probability" 
+    "As expected, positive relationship between both shots and shots on target on win probability",
     "Shots on target more significant.",
-    "Relationship weaker than expected, mainly draws in extreme cases, few home losses"
+    "Relationship weaker than expected, mainly draws in extreme cases, few home losses",
     "Positive slope in graph unexpected, probably indicating that something is missing",
    ]
 
@@ -130,11 +130,11 @@ st.subheader("Key Insights from Model vs Bookmaker Analysis")
 keywords = [
     "Model outperforms bookmaker odds"
     "1XBet outperforms Bet365 in both markets.",
-    "Both companies provide higher odds in Premier League"
-    "Model mainly predicts higher probabilities for low probability cases"
-    "Hypothesis: People bet safely on favorites, leading to odds being adjusted upwards for underdogs and downwards for favorites"
-    "As a result, standard deviation is high"
-    "Law of large numbers still makes it considerable to bet based on this model"
+    "Both companies provide higher odds in Premier League",
+    "Model mainly predicts higher probabilities for low probability cases",
+    "Hypothesis: People bet safely on favorites, leading to odds being adjusted upwards for underdogs and downwards for favorites",
+    "As a result, standard deviation is high",
+    "Law of large numbers still makes it considerable to bet based on this model",
     ]
 
 for kw in keywords:
