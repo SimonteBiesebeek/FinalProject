@@ -20,7 +20,18 @@ ROOT = Path(__file__).parent
 df_premier_merged = pd.read_csv(ROOT / "MergedPremierLeagueData.csv")
 st.header("Project Introduction")
 
+st.subheader("Key Concepts")
+keywords = [
+    "Alternative for stock market",
+    "Imperfect prices",
+    "Bookmakers have all data available",
+    "Odds adjusted by betting frequency",
+    "Dutch & English league",
+    "Estimating which company and which league yield higher betting returns"
+]
 
+for kw in keywords:
+    st.markdown(f"- **{kw}**")
 st.header("League Data Comparison")
 col_dutch, col_english = st.columns(2)
 
