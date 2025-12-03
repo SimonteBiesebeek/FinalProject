@@ -21,18 +21,16 @@ df_premier_merged = pd.read_csv(ROOT / "MergedPremierLeagueData.csv")
 st.header("Project Introduction")
 
 
+st.header("League Data Comparison")
+col_dutch, col_english = st.columns(2)
 
-col_data, _, col_chart = st.columns((0.8, 0.05, 1))
-
-with col_data:
-    st.subheader("Raw Data")
+with col_dutch:
+    st.subheader("Dutch League")
     st.dataframe(df_merged)
+
+with col_english:
+    st.subheader("English League")
     st.dataframe(df_premier_merged)
-
-with col_chart:
-    st.subheader("Data Overview")
-    st.markdown("Placeholder for chart")
-
 
 with open("win_fig.pkl", "rb") as f:
     win_fig = pickle.load(f)
