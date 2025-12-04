@@ -6,13 +6,13 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from pathlib import Path
 from git import Repo
-
+import os
 import plotly
 
 
 st.set_page_config("Final Project", layout="wide")
 st.title("Final Project: Data Analysis with Python")
-
+st.subtitle("Beating the Betting Market: a Data Driven Approach to Football Forecasting")
 ROOT = Path(__file__).parent
 df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
 
