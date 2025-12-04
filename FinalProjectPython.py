@@ -12,7 +12,7 @@ import plotly
 
 st.set_page_config("Final Project", layout="wide")
 st.title("Final Project: Data Analysis with Python")
-st.subtitle("Beating the Betting Market: a Data Driven Approach to Football Forecasting")
+st.header("Beating the Betting Market: a Data Driven Approach to Football Forecasting")
 ROOT = Path(__file__).parent
 df_merged = pd.read_csv(ROOT / "MergedDutchLeagueData.csv")
 
