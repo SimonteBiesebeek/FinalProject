@@ -30,6 +30,7 @@ keywords = [
     "Estimating which company and which league yield higher betting returns"
 ]
 
+FIGURES_DIR = "figures"
 for kw in keywords:
     st.markdown(f"- **{kw}**")
 st.header("League Data Comparison")
@@ -43,10 +44,10 @@ with col_english:
     st.subheader("English League")
     st.dataframe(df_premier_merged)
 
-with open("win_fig.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/win_fig.pkl", "rb") as f:
     win_fig = pickle.load(f)
 
-with open("loss_fig.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/loss_fig.pkl", "rb") as f:
     loss_fig = pickle.load(f)
 
 st.subheader("Win and Loss Analysis")
@@ -73,13 +74,13 @@ for kw in keywords:
     st.markdown(f"- **{kw}**")
 
 st.subheader("Shots and Shots on Target Dominance")
-with open("match_dominance_fig.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/match_dominance_fig.pkl", "rb") as f:
     fig = pickle.load(f)
 
 st.plotly_chart(fig, use_container_width=True)
 
 st.write("Premier League Version")
-with open("match_dominance_fig_prem.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/match_dominance_fig_prem.pkl", "rb") as f:
     fig_prem_shots = pickle.load(f)
 
 st.plotly_chart(fig_prem_shots, use_container_width=True)
@@ -94,13 +95,13 @@ keywords = [
 for kw in keywords:
     st.markdown(f"- **{kw}**")
 st.subheader("Corner Kick Heatmaps")
-with open("corner_heatmap_fig.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/corner_heatmap_fig.pkl", "rb") as f:
     fig_cornersDutch = pickle.load(f)
 
 st.plotly_chart(fig_cornersDutch, use_container_width=True)
 
 st.subheader("Premier League Corner Kick Heatmaps")
-with open("corner_heatmapPremier_fig.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/corner_heatmapPremier_fig.pkl", "rb") as f:
     fig_cornersPremier = pickle.load(f)
 
 st.plotly_chart(fig_cornersPremier, use_container_width=True)
@@ -115,13 +116,13 @@ keywords = [
 for kw in keywords:
     st.markdown(f"- **{kw}**")
 st.subheader("Bookmaker Probabilities Visualization")
-with open("model_vs_bookmaker_plot.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/model_vs_bookmaker_plot.pkl", "rb") as f:
     fig_betting = pickle.load(f)
 
 st.plotly_chart(fig_betting, use_container_width=True, key="book_prob_plot")
 
 st.write("Premier League Model")
-with open("model_vs_bookmaker_premier_plot.pkl", "rb") as f:
+with open(f"{FIGURES_DIR}/model_vs_bookmaker_premier_plot.pkl", "rb") as f:
     fig_premier_betting = pickle.load(f)
 
 st.plotly_chart(fig_premier_betting, use_container_width=True, key="book_prob_plot_premier")  
