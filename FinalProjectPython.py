@@ -5,7 +5,7 @@ import pickle
 import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from pathlib import Path
-
+from git import Repo
 
 import plotly
 
