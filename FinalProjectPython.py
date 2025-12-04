@@ -144,3 +144,45 @@ keywords = [
 st.subheader("Which league is more profitable to bet on?")
 for kw in keywords:
     st.markdown(f"- **{kw}**")
+
+
+# Model Findings
+performance_data = {
+    "Premier League": {
+        "1XBet": {"Total Bets": 547, "ROI": 0.1111},  # 11.11%
+        "Bet365": {"Total Bets": 511, "ROI": 0.0606},  # 6.06%
+    },
+    "Eredivisie": {
+        "1XBet": {"Total Bets": 446, "ROI": 0.0221},  # 2.21%
+        "Bet365": {"Total Bets": 445, "ROI": 0.0161},  # 1.61%
+    }
+}
+
+def calculate_performance(league, model, stake):
+    data = performance_data[league][model]
+    total_profit = data["Total Bets"] * stake * data["ROI"]
+    return {
+        "Total Profit": total_profit,
+        "Total Bets Placed": data["Total Bets"],
+        "ROI": data["ROI"] * 100
+    }
+
+st.title("Bookmaker Performance Dashboard")
+
+# Select league
+league = st.selectbox("Select League", ["Eredivisie", "Premier League"])
+
+# Select Bookmaker
+model = st.selectbox("Select Bookmaker", ["1XBet", "Bet365"])
+
+# Stake per bet
+stake = st.number_input("Stake per Bet (€)", min_value=0.0, value=1.0, step=0.5)
+
+# Calculate performance
+performance = calculate_performance(league, model, stake)
+
+# Display results
+st.subheader(f"{league} - {model} Performance")
+st.write(f"Total Profit: €{performance['Total Profit']:.2f}")
+st.write(f"Total Bets Placed: {performance['Total Bets Placed']}")
+st.write(f"ROI: {performance['ROI']:.2f}%")
