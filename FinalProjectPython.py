@@ -50,6 +50,7 @@ with open(f"{FIGURES_DIR}/win_fig.pkl", "rb") as f:
 with open(f"{FIGURES_DIR}/loss_fig.pkl", "rb") as f:
     loss_fig = pickle.load(f)
 
+st.subheader("Are there any patterns in winning/losing probabilities for teams when leading/losing at half time, and are there differences for home vs away?")
 st.subheader("Win and Loss Analysis")
 st.plotly_chart(win_fig, use_container_width=True)
 st.plotly_chart(loss_fig, use_container_width=True)
@@ -73,6 +74,7 @@ keywords = [
 for kw in keywords:
     st.markdown(f"- **{kw}**")
 
+st.subheader("To what extent does match statistics like shots and shots on target say anything about the likelihood of the match outcomes?")
 st.subheader("Shots and Shots on Target Dominance")
 with open(f"{FIGURES_DIR}/match_dominance_fig.pkl", "rb") as f:
     fig = pickle.load(f)
@@ -94,6 +96,7 @@ keywords = [
 
 for kw in keywords:
     st.markdown(f"- **{kw}**")
+st.subheader("Is there any relationship between the amount of corners per team and the probability of each team?")    
 st.subheader("Corner Kick Heatmaps")
 with open(f"{FIGURES_DIR}/corner_heatmap_fig.pkl", "rb") as f:
     fig_cornersDutch = pickle.load(f)
@@ -115,6 +118,7 @@ keywords = [
 
 for kw in keywords:
     st.markdown(f"- **{kw}**")
+st.subheader("To what extent does my model outperform the betting market?")
 st.subheader("Bookmaker Probabilities Visualization")
 with open(f"{FIGURES_DIR}/model_vs_bookmaker_plot.pkl", "rb") as f:
     fig_betting = pickle.load(f)
@@ -137,6 +141,6 @@ keywords = [
     "As a result, standard deviation is high",
     "Law of large numbers still makes it considerable to bet based on this model",
     ]
-
+st.subheader("Which league is more profitable to bet on?")
 for kw in keywords:
     st.markdown(f"- **{kw}**")

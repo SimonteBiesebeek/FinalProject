@@ -18,7 +18,7 @@ In a period where the stock market seems increasingly uncertain and also highly 
 - Is there any relationship between the amount of corners per team and the probability of each team?
     - Interesting to see that corners is almost no predictor at all, coefficient only 0.07 for Dutch League 
     - Away teams tend to win more often when having a significant corner deficit, while for the home team this does not hold
-- To what extent does my model outperform the betting market?t
+- To what extent does my model outperform the betting market?
     - Straightforward model, where I assume that the strength of each team depends for 50% on the current season's form, and the other 50% on the 5-year average
     - For Dutch league, ROI = 2.21% for 1xBet, and 1.61% for Bet 365. 
     - For English League, ROI = 11.11% for 1xBet and 6.06% for Bet365
